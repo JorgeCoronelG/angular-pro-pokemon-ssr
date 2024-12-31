@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'page-contact',
@@ -8,4 +9,14 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class ContactPageComponent {}
+export default class ContactPageComponent implements OnInit {
+  private title = inject(Title);
+  private meta = inject(Meta);
+
+  ngOnInit(): void {
+    this.title.setTitle('Contact Page');
+    this.meta.updateTag({ name: 'description', content: 'Este es mi Contact Page' });
+    this.meta.updateTag({ name: 'og:title', content: 'Contact Page' });
+    this.meta.updateTag({ name: 'keywords', content: 'Hola,Mundo,Jorge,Coronel,Curso,Angular,PRO' });
+  }
+}
